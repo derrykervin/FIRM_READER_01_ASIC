@@ -17,8 +17,8 @@ module tt_um_derrykervin_firm_reader_01 (
  // Input bus ui[6:2] selects a diagnostic byte, uio is read-only output.
  assign uio_out = ui_in[6:2]==0 ? {1'b0,state,error} :
                   ui_in[6:2]==1 ? version :
-                  ui_in[6:2]>=2 && ui_in[6:2]<=9 ? (id >> ((9-ui_in[6:2])*8)) :
-                  ui_in[6:2]>=10 && ui_in[6:2]<=17 ? (response >> ((17-ui_in[6:2])*8)) : 8'h00;
+                  ui_in[6:2]>=2 && ui_in[6:2]<=9 ? id[(9-ui_in[6:2])*8 +: 8] :
+                  ui_in[6:2]>=10 && ui_in[6:2]<=17 ? response[(17-ui_in[6:2])*8 +: 8] : 8'h00;
  assign uio_oe=8'hff;
  wire unused=&{1'b0,ena,uio_in,ui_in[7],cclk,1'b0};
 endmodule
