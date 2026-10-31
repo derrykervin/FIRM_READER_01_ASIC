@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           repository: derrykervin/FIRM_CARD_01_ASIC
-          ref: 559a1d6d4050d1dc3d2f3330af9072d9ac5a553c
+          ref: 897c996bea53ec43f7fe43818f5cc89f990bf20d
           path: .reference/card
           persist-credentials: false
       - name: Install simulator
@@ -32,6 +32,8 @@ jobs:
           iverilog -V > reports/current/iverilog-version.txt 2>&1
       - name: Execute protocol and fault matrix
         run: bash tools/check.sh .reference/card
+      - name: UART asynchronous phase, rate and jitter matrix
+        run: python3 -B tools/run_uart_async.py --output reports/current/uart-async
       - name: Preserve joint regression evidence
         if: always()
         uses: actions/upload-artifact@v7
