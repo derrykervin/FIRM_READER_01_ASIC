@@ -1,0 +1,41 @@
+name: joint-regression
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  card-reader:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      # Reproducible CARD candidate, not a mutable cross-repository main checkout.
+      # Update this SHA explicitly after a CARD revision is validated.
+      - uses: actions/checkout@v6
+        with:
+          repository: derrykervin/FIRM_CARD_01_ASIC
+          ref: 559a1d6d4050d1dc3d2f3330af9072d9ac5a553c
+          path: .reference/card
+          persist-credentials: false
+      - name: Install simulator
+        run: sudo apt-get update && sudo apt-get install -y iverilog
+      - name: Capture both source revisions
+        run: |
+          mkdir -p reports/current
+          git rev-parse HEAD > reports/current/reader-sha.txt
+          git -C .reference/card rev-parse HEAD > reports/current/card-sha.txt
+          iverilog -V > reports/current/iverilog-version.txt 2>&1
+      - name: Execute protocol and fault matrix
+        run: bash tools/check.sh .reference/card
+      - name: Preserve joint regression evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: card-reader-joint-evidence
+          path: reports/current/
+          if-no-files-found: error
