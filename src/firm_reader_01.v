@@ -66,6 +66,13 @@ module firm_reader_01 #(
             tx_index<=0; rx_count<=0; tx_start<=0; tx_data<=0;
             card_reset_n<=0; auth_pass<=0; auth_fail<=0; error_code<=0;
             card_version<=0; card_id<=0; auth_response<=0;
+        end else if (phase==2'd3 || state>FAILED || (phase==AUTH && tx_index>4'd8)) begin
+            // Highest-priority internal fault guard: the normal FSM must not
+            // overwrite failure or transmit a challenge with an invalid index.
+            state<=FAILED; phase<=VERSION; tx_start<=0; tx_data<=0;
+            tx_index<=0; rx_count<=0; watchdog<=0; delay_count<=0;
+            card_reset_n<=0; auth_pass<=0; auth_fail<=1; error_code<=4;
+            auth_response<=0;
         end else begin
             tx_start<=0;
             // Receive concurrently with TX completion, so an early reply is retained.
@@ -77,6 +84,7 @@ module firm_reader_01 #(
                         VERSION: card_version<=rx_data;
                         IDENTIFY: card_id<={card_id[55:0],rx_data};
                         AUTH: auth_response<={auth_response[55:0],rx_data};
+                        default: begin end // Illegal phase handled by outer guard.
                     endcase
                 end
             end
@@ -96,7 +104,7 @@ module firm_reader_01 #(
                     if(phase==VERSION) tx_data<=8'h01;
                     else if(phase==IDENTIFY) tx_data<=8'h02;
                     else if(tx_index==0) tx_data<=8'h10;
-                    else tx_data<=CHALLENGE[63-(tx_index-1)*8 -: 8];
+                    else tx_data<=CHALLENGE[32'd63-({28'd0,tx_index}-32'd1)*32'd8 -: 8];
                     tx_start<=1; state<=TX_ACK;
                 end
                 TX_ACK: if(tx_busy) state<=TX_DONE;
