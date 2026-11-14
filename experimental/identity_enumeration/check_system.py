@@ -5,6 +5,7 @@ import argparse,hashlib,json,re,subprocess,sys
 from pathlib import Path
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--card',type=Path,required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--cvc',type=Path);p.add_argument('--cpb',type=int,default=16)
 p.add_argument('--share-digest',type=int,choices=[0,1],default=1)
+p.add_argument('--simulation-timeout',type=int,default=300,help='Host wall-clock seconds only; does not change any RTL cycle deadline')
 a=p.parse_args();here=Path(__file__).resolve().parent;root=here.parents[1];card=a.card.resolve();out=a.out.resolve();out.mkdir(parents=True,exist_ok=True)
 sys.path.insert(0,str(card/'FIRM-SYSTEM-SPECS/tools'))
 from protocol import Frame,encode
@@ -68,7 +69,8 @@ if binary.exists():binary.unlink()
 cmd=[str(a.cvc.resolve()),'+define+FIRM_CVC_NO_ASYNC_ATTR',*map(str,files)] if a.cvc else ['iverilog','-g2012','-s','tb_identity_system','-o','sim',*map(str,files)]
 r=subprocess.run(cmd,cwd=out,capture_output=True,text=True,timeout=60);(out/'compile.log').write_text(r.stdout+r.stderr)
 assert r.returncode==0 and(not a.cvc or binary.exists()),r.stdout+r.stderr
-with (out/'simulation.log').open('w')as log:r=subprocess.run([str(binary)]if a.cvc else['vvp','sim'],cwd=out,stdout=log,stderr=subprocess.STDOUT,timeout=300)
+assert 0<a.simulation_timeout<=1500,'Bounded host execution budget required'
+with (out/'simulation.log').open('w')as log:r=subprocess.run([str(binary)]if a.cvc else['vvp','sim'],cwd=out,stdout=log,stderr=subprocess.STDOUT,timeout=a.simulation_timeout)
 log=(out/'simulation.log').read_text();ok=r.returncode==0 and f'PASS identity TT system CPB={a.cpb} DIV=2 completed=20 ROM=256' in log and 'FATAL:'not in log and '$fatal['not in log
 wire_results=[]
 if ok:
