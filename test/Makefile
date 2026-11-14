@@ -6,7 +6,7 @@ SIM ?= icarus
 FST ?= -fst # Use more efficient FST format
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v firm_reader_01.v uart_tx.v uart_rx.v
+PROJECT_SOURCES = $(shell python3 project_sources.py)
 
 ifneq ($(GATES),yes)
 
