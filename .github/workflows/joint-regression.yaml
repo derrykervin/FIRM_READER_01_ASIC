@@ -72,7 +72,7 @@ jobs:
           git rev-parse HEAD > reports/current-pair/reader-sha.txt
           git -C .reference/card rev-parse HEAD > reports/current-pair/card-sha.txt
           iverilog -V > reports/current-pair/iverilog-version.txt 2>&1
-          python3 -B experimental/identity_enumeration/check_system.py --card .reference/card --out reports/current-pair --cpb "${{ matrix.cpb }}"
+          python3 -B experimental/identity_enumeration/check_system.py --card .reference/card --out reports/current-pair --cpb "${{ matrix.cpb }}" --simulation-timeout 1200
       - uses: actions/upload-artifact@v7
         if: always()
         with:
