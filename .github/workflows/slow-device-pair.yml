@@ -1,0 +1,90 @@
+name: slow-device-pair
+on:
+  push:
+    paths: ['experimental/slow_pair/**', '.github/workflows/slow-device-pair.yml']
+  pull_request:
+    paths: ['experimental/slow_pair/**', '.github/workflows/slow-device-pair.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cvc_m0:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - uses: actions/checkout@v6
+        with:
+          repository: derrykervin/FIRM_CARD_01_ASIC
+          ref: 4de357eb078df3221dbce9ed9fba20993ed0fb67
+          path: .reference/card
+          persist-credentials: false
+      - uses: actions/checkout@v6
+        with:
+          repository: cambridgehackers/open-src-cvc
+          ref: 1c5e043ec33ef6f1fdbf38565501c944893a83cf
+          path: .reference/cvc
+          persist-credentials: false
+      - name: Verify pinned simulator source bytes
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          lock=json.loads(Path('experimental/slow_pair/cvc-source-lock.json').read_text())
+          assert lock['revision']=='1c5e043ec33ef6f1fdbf38565501c944893a83cf'
+          for row in lock['files']:
+            b=(Path('.reference/cvc')/row['path']).read_bytes()
+            assert hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==row['sha'],row['path']
+          print('PASS pinned simulator files',len(lock['files']))
+      - name: Build unchanged pinned simulator and reference crypto
+        run: |
+          sudo apt-get update && sudo apt-get install -y build-essential zlib1g-dev
+          mkdir -p reports/slow-pair
+          make -C .reference/cvc/src -j2 cvc64 > reports/slow-pair/cvc-build.log 2>&1
+          sha256sum .reference/cvc/build64/cvc64 > reports/slow-pair/cvc-binary.sha256
+          python3 -m pip install -r .reference/card/FIRM-SYSTEM-SPECS/requirements-reference.txt
+      - name: Qualify production-default M0 windows, recovery and defect controls
+        run: |
+          git rev-parse HEAD > reports/slow-pair/reader-sha.txt
+          git -C .reference/card rev-parse HEAD > reports/slow-pair/card-sha.txt
+          python3 -B experimental/slow_pair/check.py --card .reference/card --out reports/slow-pair --cvc .reference/cvc/build64/cvc64
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: slow-pair-cvc-m0
+          path: reports/slow-pair/
+          if-no-files-found: error
+  icarus_m0:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - uses: actions/checkout@v6
+        with:
+          repository: derrykervin/FIRM_CARD_01_ASIC
+          ref: 4de357eb078df3221dbce9ed9fba20993ed0fb67
+          path: .reference/card
+          persist-credentials: false
+      - name: Install independent simulator and reference crypto
+        run: |
+          sudo apt-get update && sudo apt-get install -y iverilog
+          python3 -m pip install -r .reference/card/FIRM-SYSTEM-SPECS/requirements-reference.txt
+      - name: Full production-default identity, proof and cached retries
+        run: |
+          mkdir -p reports/slow-pair-icarus
+          git rev-parse HEAD > reports/slow-pair-icarus/reader-sha.txt
+          git -C .reference/card rev-parse HEAD > reports/slow-pair-icarus/card-sha.txt
+          iverilog -V > reports/slow-pair-icarus/iverilog-version.txt 2>&1
+          python3 -B experimental/slow_pair/run.py --card .reference/card --out reports/slow-pair-icarus --simulation-timeout 2400
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: slow-pair-icarus-m0
+          path: reports/slow-pair-icarus/
+          if-no-files-found: error

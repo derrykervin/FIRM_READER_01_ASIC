@@ -1,0 +1,371 @@
+{
+  "repository": "cambridgehackers/open-src-cvc",
+  "revision": "1c5e043ec33ef6f1fdbf38565501c944893a83cf",
+  "files": [
+    {
+      "path": "OSS-CVC-MODIFIED-ARTISTIC-LIC.TXT",
+      "sha": "68d8f4b606088258270347ce8c593bc9a0c4b6e5",
+      "ok": true
+    },
+    {
+      "path": "CHANGES.md",
+      "sha": "547db5866b66041198546ebffbc0d962d1536c60",
+      "ok": true
+    },
+    {
+      "path": "INSTALL",
+      "sha": "996967bfc1242d3211d79990e4974f29f71a3206",
+      "ok": true
+    },
+    {
+      "path": "README.md",
+      "sha": "6bca596788f8e2105cf523bc0834e518a377075e",
+      "ok": true
+    },
+    {
+      "path": "pli_incs/acc_user.h",
+      "sha": "b00ca27286a9b0042da4269c54116d22fd29a0ab",
+      "ok": true
+    },
+    {
+      "path": "pli_incs/cv_vpi_user.h",
+      "sha": "3429e465b23bd9b7450a97b856e984d8a264c932",
+      "ok": true
+    },
+    {
+      "path": "pli_incs/cv_veriuser.h",
+      "sha": "a475eec0cabd03b4209ed60cb051367d50a4af1a",
+      "ok": true
+    },
+    {
+      "path": "pli_incs/cv_acc_user.h",
+      "sha": "b7f3eaba9050a81e0e5c0c4f6ac3e17870c3d3b7",
+      "ok": true
+    },
+    {
+      "path": "src/.CODEGEN.NOTES.swp",
+      "sha": "8788ecd00b1a07aad688fa4345f76e8914fe3af5",
+      "ok": true
+    },
+    {
+      "path": "pli_incs/svdpi.h",
+      "sha": "41bff411b387a94964a5300b9503523d56ba72bf",
+      "ok": true
+    },
+    {
+      "path": "pli_incs/veriuser.h",
+      "sha": "ff08ecc64763d311e4d5ebde4b251c9c8115f6a0",
+      "ok": true
+    },
+    {
+      "path": "pli_incs/vpi_user.h",
+      "sha": "cc6381658ad2d796928c8bc410ecd506669f2449",
+      "ok": true
+    },
+    {
+      "path": "src/OSS-CVC-MOD-ARTISTIC-LIC.TXT",
+      "sha": "68d8f4b606088258270347ce8c593bc9a0c4b6e5",
+      "ok": true
+    },
+    {
+      "path": "src/config.h",
+      "sha": "fff4a43f883bafbcbfee02b716c5ea81a9b6f8a9",
+      "ok": true
+    },
+    {
+      "path": "src/cvc.c",
+      "sha": "6f68b8e4f924cb1a988002bae502b5a19b521edb",
+      "ok": true
+    },
+    {
+      "path": "src/Makefile",
+      "sha": "2876781c1540b8c7909378cdf55d3b6111bced70",
+      "ok": true
+    },
+    {
+      "path": "src/dig_main.c",
+      "sha": "2608d75f412f37a33c4f2fae464df9700dd84876",
+      "ok": true
+    },
+    {
+      "path": "src/exe_main.c",
+      "sha": "918743fbbc83dd8f06554ff9888eb4ac2153d408",
+      "ok": true
+    },
+    {
+      "path": "src/cvc_wrhelp.h",
+      "sha": "083e55da480dc01b7c0daaba8917a9327741a8eb",
+      "ok": true
+    },
+    {
+      "path": "src/cvmacros.h",
+      "sha": "ded9df823725463141db5b04e5b55026b057b5f1",
+      "ok": true
+    },
+    {
+      "path": "src/fastlz.c",
+      "sha": "8e14ecfc0b07547c876d852960ade98f3e16d920",
+      "ok": true
+    },
+    {
+      "path": "src/fstapi.h",
+      "sha": "83daac4b0522e34a4e94a66d75b0d98590e9c1ae",
+      "ok": true
+    },
+    {
+      "path": "src/fastlz.h",
+      "sha": "e0512c190ed5cb0f3f9fc8cf2cd0b64cd7030559",
+      "ok": true
+    },
+    {
+      "path": "src/fstapi.c",
+      "sha": "f1dd8123c21c18ae770b416f49110a732a8246de",
+      "ok": true
+    },
+    {
+      "path": "src/helpgen2.inp",
+      "sha": "0af34ae40ef236a3724861d96e7652831a363780",
+      "ok": true
+    },
+    {
+      "path": "src/helpgen.inp",
+      "sha": "cc158248fb3bc64c6a0046d44ce681896d007e37",
+      "ok": true
+    },
+    {
+      "path": "src/hexasm.c",
+      "sha": "f4f0d550cb07407e11078b10be7740c16606ceae",
+      "ok": true
+    },
+    {
+      "path": "src/helpgen3.inp",
+      "sha": "c280c8e6d3d0ad1ae5f1f8267982aaed75c6d66b",
+      "ok": true
+    },
+    {
+      "path": "src/lz4.c",
+      "sha": "ee37895f433c1f9240e5331aa5df24242898e37e",
+      "ok": true
+    },
+    {
+      "path": "src/igen.h",
+      "sha": "bedce6492137eea8f3f9b9caa28a2a61cf63260d",
+      "ok": true
+    },
+    {
+      "path": "src/lz4.h",
+      "sha": "43a92c38ab0b45ff753cb296c80e3cc6e3425ae8",
+      "ok": true
+    },
+    {
+      "path": "src/libz.a",
+      "sha": "641520c447363d386b937912da78b80fd3b3fc23",
+      "ok": true
+    },
+    {
+      "path": "src/systsks.h",
+      "sha": "f19d393c643afd02a2fe45c763319dbd959be34c",
+      "ok": true
+    },
+    {
+      "path": "src/makefile.cvc",
+      "sha": "1a41955e261e0ded5c31db212bcd94b3d934f0b4",
+      "ok": true
+    },
+    {
+      "path": "src/v.h",
+      "sha": "03f360f4315a05cf2e424b53f4d8c99fb1ca0343",
+      "ok": true
+    },
+    {
+      "path": "src/v_acc.c",
+      "sha": "5f3e3393307290f0a5cb20a189ca5715e16618d3",
+      "ok": true
+    },
+    {
+      "path": "src/v_bbgen.c",
+      "sha": "3cef00ba05c65c7a4245706f337b6ba953b65036",
+      "ok": true
+    },
+    {
+      "path": "src/v_bbgen2.c",
+      "sha": "cc9b962e17990eb66faab1a3ddf49306f1af1182",
+      "ok": true
+    },
+    {
+      "path": "src/v_asmlnk.c",
+      "sha": "a4cef005838e83a34f7f40c1d31e2e8a6b69b470",
+      "ok": true
+    },
+    {
+      "path": "src/v_aslib.c",
+      "sha": "4cdc2743d9d2b362d3860978bd5689743940cc1a",
+      "ok": true
+    },
+    {
+      "path": "src/v_cvcms.c",
+      "sha": "dae94089f76d5b18f0aaa6a11d6cd87dca71656a",
+      "ok": true
+    },
+    {
+      "path": "src/v_bbopt.c",
+      "sha": "0f75bf3bebfbe4ef9ab0bfc5dd186dc7e8345441",
+      "ok": true
+    },
+    {
+      "path": "src/v_cvcrt.c",
+      "sha": "ecc2b0251bfcf94b728ef362afbae64dde7dd04c",
+      "ok": true
+    },
+    {
+      "path": "src/v_cnv.c",
+      "sha": "4539d67c62299fa6ee86012109c1c957abf026e5",
+      "ok": true
+    },
+    {
+      "path": "src/v_dbg.c",
+      "sha": "d2b62bd4f4f70cb4a8606ec6c63dca0048364e2c",
+      "ok": true
+    },
+    {
+      "path": "src/v_bbgen3.c",
+      "sha": "edf7c97d4f571439f6aecf360eb024a9fe2469d3",
+      "ok": true
+    },
+    {
+      "path": "src/v_cvr.c",
+      "sha": "affe3b6086d6dd43f5480278a281c99212989ae1",
+      "ok": true
+    },
+    {
+      "path": "src/v_ex.c",
+      "sha": "e058fc419b2e6e9e9f2ff7d5aaa1b38271a0ded7",
+      "ok": true
+    },
+    {
+      "path": "src/v_dpi.c",
+      "sha": "ea46198310cb4121e403d1d5c3d923511d265477",
+      "ok": true
+    },
+    {
+      "path": "src/v_ex2.c",
+      "sha": "448ff397ee4b8caac81ce5efd3869b7e5b78eb24",
+      "ok": true
+    },
+    {
+      "path": "src/v_del.c",
+      "sha": "2767ee65dc2d99ec34bc6b6b7b90331f67834346",
+      "ok": true
+    },
+    {
+      "path": "src/v_ex3.c",
+      "sha": "5752c5c6263d681ac01331f8c7edb0e378298db5",
+      "ok": true
+    },
+    {
+      "path": "src/v_dbg2.c",
+      "sha": "f47f7a32b997f485300107ba2a70270297e7436b",
+      "ok": true
+    },
+    {
+      "path": "src/v_ex4.c",
+      "sha": "880b3665d9ecb8750863bfaafceaf673601292cd",
+      "ok": true
+    },
+    {
+      "path": "src/v_fx2.c",
+      "sha": "494e0c99f88043fc8e3c7e1efa98c195a7fd3f5b",
+      "ok": true
+    },
+    {
+      "path": "src/v_fx3.c",
+      "sha": "d5f2f76b857d3fffa7976ffb28eb0abedac69b33",
+      "ok": true
+    },
+    {
+      "path": "src/v_ms.c",
+      "sha": "c4764a2c6346d2c9753da8d44d1d42cfb50d2cdd",
+      "ok": true
+    },
+    {
+      "path": "src/v_genfx.c",
+      "sha": "c2c6a17e54334f2083ad593e17cb5c6e6a10e6b0",
+      "ok": true
+    },
+    {
+      "path": "src/v_fx.c",
+      "sha": "30461b65d8cb14664b345b56e0bcd03ee7f591e0",
+      "ok": true
+    },
+    {
+      "path": "src/v_prp.c",
+      "sha": "11db35fe03e8082f0ffe616b402a54a3c916ab4c",
+      "ok": true
+    },
+    {
+      "path": "src/v_prp2.c",
+      "sha": "a6505cdf3af404ff5b65084bd4f5787548d8b863",
+      "ok": true
+    },
+    {
+      "path": "src/v_regasn.c",
+      "sha": "026b397a8fae8bcb73cce556eab065f486566b2a",
+      "ok": true
+    },
+    {
+      "path": "src/v_sdf.c",
+      "sha": "04d162c60bb83ce056a04995dfe0da6718fce1e1",
+      "ok": true
+    },
+    {
+      "path": "src/v_sim.c",
+      "sha": "60b39ac125adcda5dfa844da8d864dc00fd1ab1d",
+      "ok": true
+    },
+    {
+      "path": "src/v_src.c",
+      "sha": "bfe8ef533bc9964e64100695dc1ae8a114e3c713",
+      "ok": true
+    },
+    {
+      "path": "src/v_src3.c",
+      "sha": "efe4da60eaf9e153c0d1f3b1044d2e66a3c390d0",
+      "ok": true
+    },
+    {
+      "path": "src/v_src2.c",
+      "sha": "250a0b082c6958c4c329c0feebb753091ce6ce4f",
+      "ok": true
+    },
+    {
+      "path": "src/v_vpi.c",
+      "sha": "62f2fa58afd7535348a33a93715f76b8d8cdafb9",
+      "ok": true
+    },
+    {
+      "path": "src/v_tf.c",
+      "sha": "12f662b80048b43d1bc7c2ca8090245279303929",
+      "ok": true
+    },
+    {
+      "path": "src/v_trch.c",
+      "sha": "e10c06cb7462599cf13b97463bf892f8b18fecf6",
+      "ok": true
+    },
+    {
+      "path": "src/v_vpi2.c",
+      "sha": "b4dcb0e634f17901c9c6e9a430107dbcc82bc9d2",
+      "ok": true
+    },
+    {
+      "path": "src/v_xprop.c",
+      "sha": "8d0c5b1171c6d09b51de012082a1316b1f5f5ba1",
+      "ok": true
+    },
+    {
+      "path": "src/v_vpi3.c",
+      "sha": "3eaef0663f059e6bc68b490294559f32fb232903",
+      "ok": true
+    }
+  ]
+}
