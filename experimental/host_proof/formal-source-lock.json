@@ -1,0 +1,26 @@
+{
+  "src/firm_frame_rx.v": {
+    "source": "experimental/host_proof/firm_frame_rx.v",
+    "sha256": "280fc4fda92422722850aae7cc46223b90f5be979adc2edef7cf7cde113a87f6"
+  },
+  "src/firm_host_proof_bridge.v": {
+    "source": "experimental/host_proof/firm_host_proof_bridge.v",
+    "sha256": "1b8a8df4d7a782cf6fc7dc9f99988ab97369868ab212e8a317d66aa5d35001bb"
+  },
+  "src/firm_reader_host_uart.v": {
+    "source": "experimental/host_proof/firm_reader_host_uart.v",
+    "sha256": "99ff3f7678eb72cdcbbf9d9b2aec873f27e3a5238a9d62fa10fd8f6431979e7e"
+  },
+  "src/firm_reader_card_power.v": {
+    "source": "experimental/status_v2/firm_reader_card_power.v",
+    "sha256": "b74931eff9e31aa38f1be9f4d95be911c5ec3e0bfefd2986b932116ca8fdebf4"
+  },
+  "src/firm_reader_proof_ctrl.v": {
+    "source": "experimental/proof_transport/firm_reader_proof_ctrl.v",
+    "sha256": "fbb9e58cfe9330454569068ec28bcc009053ae37396f6046a701d66493f36a13"
+  },
+  "src/firm_reader_proof_uart.v": {
+    "source": "experimental/proof_transport/firm_reader_proof_uart.v",
+    "sha256": "efdc92b24acfacf2d42919c88ab80900796971f023ec2e949aec5abec91932af"
+  }
+}

@@ -23,6 +23,8 @@ module tb();
     // Scalar alias for UART TX.
     // This avoids an Icarus VPI limitation on callbacks to uo_out[0].
     wire uart_tx;
+    wire host_uart_tx;
+    assign host_uart_tx = uo_out[1];
     assign uart_tx = uo_out[0];
 
 `ifdef GL_TEST
