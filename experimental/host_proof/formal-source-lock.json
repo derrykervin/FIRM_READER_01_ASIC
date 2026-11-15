@@ -5,7 +5,7 @@
   },
   "src/firm_host_proof_bridge.v": {
     "source": "experimental/host_proof/firm_host_proof_bridge.v",
-    "sha256": "4778db1df03f14c2006daf3f307d4d0c51532c1e1295af1081a8e86b116a6c1c"
+    "sha256": "edc064cd7569dc78a584b99edd8bdd78685eab7c0e7af3a0370d1c0babd781ff"
   },
   "src/firm_reader_host_uart.v": {
     "source": "experimental/host_proof/firm_reader_host_uart.v",

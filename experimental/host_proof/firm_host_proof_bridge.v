@@ -90,7 +90,7 @@ module firm_host_proof_bridge #(
   input [7:0] status_code,detail;
   begin
    if(!reject_pending) begin
-    reject_pending<=1;reject_sequence<=sequence_id;reject_command<=command;
+    reject_pending<=1;
     reject_status<=status_code;reject_detail<=detail;
    end else overrun<=1;
   end
@@ -139,6 +139,12 @@ module firm_host_proof_bridge #(
      end
      default:complete_failure(E_DEVICE);
     endcase
+   end
+   // Metadata has no observable meaning while the rejection slot is empty.
+   // Capture on the same frame edge before classification. Only reject_pending
+   // publishes it; a full slot is never overwritten, including its TX-take edge.
+   if(frame_valid && !reject_pending) begin
+    reject_sequence<=sequence_id;reject_command<=command;
    end
    if(frame_valid) begin
     if(response_flag) reject(E_UNSUPPORTED,0);

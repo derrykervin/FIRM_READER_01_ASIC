@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           repository: derrykervin/FIRM_CARD_01_ASIC
-          ref: 4de357eb078df3221dbce9ed9fba20993ed0fb67
+          ref: 4ea89ba3d056db4405229a95074044f11587c652
           path: .reference/card
           persist-credentials: false
       - name: Install simulator
@@ -55,11 +55,11 @@ jobs:
         with:
           python-version: '3.11'
       - name: Validate immutable paired revision
-        run: test "$(cat .github/card-revision.txt)" = "4de357eb078df3221dbce9ed9fba20993ed0fb67"
+        run: test "$(cat .github/card-revision.txt)" = "4ea89ba3d056db4405229a95074044f11587c652"
       - uses: actions/checkout@v6
         with:
           repository: derrykervin/FIRM_CARD_01_ASIC
-          ref: 4de357eb078df3221dbce9ed9fba20993ed0fb67
+          ref: 4ea89ba3d056db4405229a95074044f11587c652
           path: .reference/card
           persist-credentials: false
       - name: Install independent simulator and reference crypto
