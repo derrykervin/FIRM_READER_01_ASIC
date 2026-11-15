@@ -12,10 +12,16 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v6
+      - name: Verify retained build source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source_sha=$(gh api repos/${{ github.repository }}/actions/runs/43660443359 --jq .head_sha)
+          test "$source_sha" = 8cdc30b8df0496e3f6b4aaf4847eb33c21b092f1
       - uses: actions/download-artifact@v4
         with:
           name: GDS_logs
-          run-id: 43650508186
+          run-id: 43660443359
           github-token: ${{ github.token }}
           path: physical-logs
       - name: Recover actual slow-corner critical paths
@@ -31,10 +37,10 @@ jobs:
           assert selected, 'No complete slow-corner timing path report found'
           cells=set();recovered=[]
           for p in selected:
-            text=p.read_text(errors='replace');lines=text.splitlines()[:220]
+            text=p.read_text(errors='replace');lines=text.splitlines()[:600]
             print('REPORT_BEGIN',str(p));print('\n'.join(lines));print('REPORT_END')
             cells.update(re.findall(r'(_\d+_)/','\n'.join(lines)))
-            recovered.append(dict(path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest(),first220=lines))
+            recovered.append(dict(path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest(),first600=lines))
           for p in root.rglob('*.v'):
             if 'yosys-synthesis'not in str(p):continue
             text=p.read_text(errors='replace');nets=set()
@@ -43,7 +49,7 @@ jobs:
                 print('CRITICAL_CELL',str(p),match[0]);nets.update(re.findall(r'\.\w+\(([^()]+)\)',match[3]))
             for line in text.splitlines():
               if line.strip().startswith('assign ')and any(re.search(r'(?<!\w)'+re.escape(n)+r'(?!\w)',line)for n in nets):print('NET_ALIAS',line)
-          Path('critical-path-recovery.json').write_text(json.dumps(dict(source_sha='0cb676a74c1aa76d8b0287649e6e8ff2d590d189',source_run=43650508186,reports=recovered),indent=2)+'\n')
+          Path('critical-path-recovery.json').write_text(json.dumps(dict(source_sha='8cdc30b8df0496e3f6b4aaf4847eb33c21b092f1',source_run=43660443359,reports=recovered),indent=2)+'\n')
       - uses: actions/upload-artifact@v7
         if: always()
         with:
