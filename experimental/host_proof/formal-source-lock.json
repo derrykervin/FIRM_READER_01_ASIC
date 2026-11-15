@@ -1,11 +1,11 @@
 {
   "src/firm_frame_rx.v": {
     "source": "experimental/host_proof/firm_frame_rx.v",
-    "sha256": "280fc4fda92422722850aae7cc46223b90f5be979adc2edef7cf7cde113a87f6"
+    "sha256": "053749c5dbdb39ea7aa51bf63baf002c902cac2f470d02ee0c8a2675797f5f92"
   },
   "src/firm_host_proof_bridge.v": {
     "source": "experimental/host_proof/firm_host_proof_bridge.v",
-    "sha256": "1b8a8df4d7a782cf6fc7dc9f99988ab97369868ab212e8a317d66aa5d35001bb"
+    "sha256": "4778db1df03f14c2006daf3f307d4d0c51532c1e1295af1081a8e86b116a6c1c"
   },
   "src/firm_reader_host_uart.v": {
     "source": "experimental/host_proof/firm_reader_host_uart.v",

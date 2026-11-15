@@ -13,6 +13,9 @@ module firm_frame_rx #(
     output reg frame_valid,
     output reg [15:0] sequence_id,
     output reg [7:0] command,
+    // CRC-qualified decode shares exactly the publication edge of command.
+    // Bits: PROVE, IDENTITY, STATUS, VERSION, CANCEL; unknown commands are zero.
+    output reg [4:0] command_class,
     output reg response_flag,
     output reg [7:0] payload_length,
     output reg [MAX_PAYLOAD*8-1:0] payload,
@@ -49,13 +52,13 @@ module firm_frame_rx #(
             crc<=16'hFFFF; sequence_work<=0; command_work<=0;
             length_hi<=0; received_crc_hi<=0; response_work<=0; payload_work<=0;
             byte_age<=0; frame_age<=0;
-            frame_valid<=0; sequence_id<=0; command<=0; response_flag<=0;
+            frame_valid<=0; sequence_id<=0; command<=0; command_class<=0; response_flag<=0;
             payload_length<=0; payload<=0; error_valid<=0; error_code<=0;
         end else begin
             frame_valid<=0; error_valid<=0;
             if(clear) begin
                 state<=SYNC0; byte_age<=0; frame_age<=0; payload_work<=0;
-                sequence_id<=0; command<=0; response_flag<=0;
+                sequence_id<=0; command<=0; command_class<=0; response_flag<=0;
                 payload_length<=0; payload<=0; error_code<=0;
                 sequence_work<=0; command_work<=0; response_work<=0;
                 crc<=16'hFFFF; received_crc_hi<=0; length_hi<=0;
@@ -115,6 +118,8 @@ module firm_frame_rx #(
                             if({received_crc_hi,byte_data}==crc) begin
                                 frame_valid<=1; sequence_id<=sequence_work;
                                 command<=command_work; response_flag<=response_work;
+                                command_class<={command_work==8'h7f,command_work==8'h01,
+                                    command_work==8'h20,command_work==8'h02,command_work==8'h10};
                                 payload_length<=length_work; payload<=payload_work;
                             end else begin error_valid<=1; error_code<=4; end
                         end
