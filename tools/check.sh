@@ -7,6 +7,7 @@ for tool in python3 iverilog vvp; do
 done
 test -f "$card_dir/src/card.v"
 mkdir -p build reports/current
+python3 -B tools/check_reject_metadata.py --out reports/current/reject-metadata
 python3 -B tools/prepare_joint_sources.py --card "$card_dir"
 sources=(build/joint_reader/firm_reader_01.v build/joint_reader/uart_rx.v build/joint_reader/uart_tx.v "$card_dir/src/card.v" "$card_dir/src/card_cpu.v" "$card_dir/src/program_rom.v" "$card_dir/src/spi_master.v" "$card_dir/src/uart_rx.v" "$card_dir/src/uart_tx.v")
 # Each core now uses its own UART source. Generated Reader type names avoid collision.
