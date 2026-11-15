@@ -24,7 +24,7 @@ module firm_host_proof_bridge #(
  reg [7:0] result[0:83];
  reg [7:0] work_command;
  wire [6:0] expected_count=work_command==2?7'd84:7'd64;
- wire identity_frame=command==2 && payload_length==0;
+ wire identity_frame=command_class[1] && payload_length==0;
  wire [255:0] incoming_value=identity_frame?256'd0:incoming_digest;
  reg [6:0] result_count;
  reg [15:0] work_sequence,highwater;
@@ -40,6 +40,7 @@ module firm_host_proof_bridge #(
  wire frame_valid,response_flag,parse_error;
  wire [15:0] sequence_id;
  wire [7:0] command,payload_length;
+ wire [4:0] command_class;
  wire [255:0] payload;
  wire [2:0] parse_error_code;
  wire [255:0] incoming_digest;
@@ -50,7 +51,7 @@ module firm_host_proof_bridge #(
  firm_frame_rx #(.MAX_PAYLOAD(32),.BYTE_TIMEOUT_CYCLES(BYTE_TIMEOUT),
   .FRAME_TIMEOUT_CYCLES(FRAME_TIMEOUT)) parser(
   .clk(clk),.reset_n(reset_n),.clear(host_rx_error),.byte_valid(host_rx_valid),.byte_data(host_rx_data),
-  .frame_valid(frame_valid),.sequence_id(sequence_id),.command(command),.response_flag(response_flag),
+  .frame_valid(frame_valid),.sequence_id(sequence_id),.command(command),.command_class(command_class),.response_flag(response_flag),
   .payload_length(payload_length),.payload(payload),.error_valid(parse_error),.error_code(parse_error_code));
  wire op_expired=op_age>=OP_TIMEOUT-1;
  wire tx_expired=tx_age>=TX_TIMEOUT-1;
@@ -60,7 +61,7 @@ module firm_host_proof_bridge #(
  assign proof_ready=reset_n && operation==RUN && card_present && result_count<expected_count && !op_expired;
  assign cancel=reset_n && operation!=IDLE &&
   (op_expired || !card_present || (frame_valid && !response_flag &&
-    command==8'h7f && payload_length==0));
+    command_class[4] && payload_length==0));
  assign busy=operation!=IDLE || primary_pending || tx_active || reject_pending;
  assign host_tx_valid=reset_n && tx_active && !tx_expired &&
   !(tx_primary && tx_status==OK && !card_present);
@@ -141,8 +142,8 @@ module firm_host_proof_bridge #(
    end
    if(frame_valid) begin
     if(response_flag) reject(E_UNSUPPORTED,0);
-    else if(command==8'h10 || command==8'h02) begin
-     if((command==8'h10 && payload_length!=32) || (command==2 && payload_length!=0)) reject(E_LENGTH,0);
+    else if(command_class[0] || command_class[1]) begin
+     if((command_class[0] && payload_length!=32) || (command_class[1] && payload_length!=0)) reject(E_LENGTH,0);
      else if(operation!=IDLE || primary_pending || tx_active || reject_pending) reject(E_BUSY,0);
      else if(!card_present) reject(E_NO_CARD,0);
      else if(cache_valid && sequence_id==work_sequence) begin
@@ -153,9 +154,9 @@ module firm_host_proof_bridge #(
       digest<=incoming_value;work_command<=command;work_sequence<=sequence_id;highwater<=sequence_id;
       operation<=START;op_age<=0;result_count<=0;cache_valid<=0;retries<=0;
      end
-    end else if(command==8'h20 && payload_length==0) reject(OK,{7'd0,busy});
-    else if(command==8'h01 && payload_length==0) reject(OK,8'h22); // v2, profile1
-    else if(command==8'h7f && payload_length==0) begin
+    end else if(command_class[2] && payload_length==0) reject(OK,{7'd0,busy});
+    else if(command_class[3] && payload_length==0) reject(OK,8'h22); // v2, profile1
+    else if(command_class[4] && payload_length==0) begin
      if(operation==RUN) reject(OK,0);
      else if(operation==START) begin complete_failure(E_CANCEL);result_remote_status<=0;result_remote_error<=0;reject(OK,0);end
      else reject(E_BUSY,0);
