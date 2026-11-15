@@ -15,7 +15,7 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: GDS_logs
-          run-id: 43646444708
+          run-id: 43650508186
           github-token: ${{ github.token }}
           path: physical-logs
       - name: Recover actual slow-corner critical paths
@@ -43,7 +43,7 @@ jobs:
                 print('CRITICAL_CELL',str(p),match[0]);nets.update(re.findall(r'\.\w+\(([^()]+)\)',match[3]))
             for line in text.splitlines():
               if line.strip().startswith('assign ')and any(re.search(r'(?<!\w)'+re.escape(n)+r'(?!\w)',line)for n in nets):print('NET_ALIAS',line)
-          Path('critical-path-recovery.json').write_text(json.dumps(dict(source_sha='bb4f238479cabe8f9be891b0d951baebe0522502',source_run=43646444708,reports=recovered),indent=2)+'\n')
+          Path('critical-path-recovery.json').write_text(json.dumps(dict(source_sha='0cb676a74c1aa76d8b0287649e6e8ff2d590d189',source_run=43650508186,reports=recovered),indent=2)+'\n')
       - uses: actions/upload-artifact@v7
         if: always()
         with:
