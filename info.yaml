@@ -4,7 +4,7 @@ project:
   description: "Dynamic identity/proof transport; factory and physical acceptance pending"
   language: "Verilog"
   clock_hz: 40000000
-  tiles: "8x2"
+  tiles: "3x4"
   top_module: "tt_um_derrykervin_firm_reader_01"
   source_files:
     - "project.v"
